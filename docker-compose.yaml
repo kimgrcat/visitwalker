@@ -1,0 +1,32 @@
+# vi docker-compose.yml
+version: "3.3"
+services:
+  mongo:
+    ports:
+      - "27018:27017"
+    container_name: visit-mongodb
+    restart: always
+    logging:
+      options:
+        max-size: 1g
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    image: mongo
+  client:
+    ports:
+      - 8070:8080
+    container_name: visit-client
+    build:
+      context: ./client
+      dockerfile: Dockerfile-local
+    volumes:
+      - ./client:/usr/src/app/visit-app/
+      - /usr/src/app/visit-app/node_modules
+  server:
+    ports:
+      - 3001:3000
+    container_name: visit-server
+    build:
+      context: ./server
+      dockerfile: Dockerfile-local
