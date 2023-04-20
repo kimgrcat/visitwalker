@@ -1,44 +1,70 @@
 <template>
   <div class="main">
-    <h3>Todo List</h3>
+    <h3>Visitationtion List</h3>
+    <div class="parent">
+      <div class="row">
+        <div class="column">
+          <Datepicker />
 
-    <form class="form">
-      <input
-        class="input"
-        v-model="title"
-        type="text"
-        name="name"
-        placeholder="Enter todo"
-      />
-      <br />
-      <input
-        class="input"
-        v-model="description"
-        type="text"
-        name="description"
-        placeholder="Enter Description"
-      />
-      <br />
-      <button class="submit-button" @click="addTodo">Add Todo</button>
-    </form>
-    <div class="todo-container">
-      <ul>
-        <li v-for="(todo, i) in todos" :key="todo._id">
-          <div class="todo">
-            <span class="todo-name">{{ todo.title }}</span>
-            <span class="todo-description">{{ todo.description }}</span>
+          <div>
+            <br />
+            <form class="form">
+              <input
+                class="input"
+                v-model="title"
+                type="text"
+                name="name"
+                placeholder="Enter Name"
+              />
+              <br />
+              <input
+                class="input"
+                v-model="description"
+                type="text"
+                name="description"
+                placeholder="Enter Descriptiontion"
+              />
+              <br />
+              <button class="submit-button" @click="addTodo">Add Visit</button>
+            </form>
           </div>
-          <button class="delete-btn" @click="removeTodo(todo, i)">
-            DELETE TODO
-          </button>
-        </li>
-      </ul>
+          <div>
+            <div class="todo-container">
+              <ul>
+                <li v-for="(todo, i) in todos" :key="todo._id">
+                  <div class="todo">
+                    <span class="todo-name">{{ todo.title }}</span>
+                    <span class="todo-description">{{ todo.description }}</span>
+                  </div>
+                  <button class="delete-btn" @click="removeTodo(todo, i)">
+                    DELETE TODO
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div>
+          <GenderSlider gender="Man" />
+          <GenderSlider gender="Woman" />
+          <GenderSlider gender="Pokemon" />
+          <GenderSlider gender="CSS magician" />
+          <GenderSlider gender="Alien" />
+          <GenderSlider gender="Orc" />
+          <GenderSlider gender="Goblin" />
+          <GenderSlider gender="Ethereal" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Datepicker from "./components/Date-picker.vue";
+import GenderSlider from "./components/GenderSlider.vue";
 export default {
   name: "App",
   data() {
@@ -68,14 +94,14 @@ export default {
       this.todos.splice(i, 1);
     },
   },
+  components: { Datepicker, GenderSlider },
 };
 </script>
 
 <style>
 .main {
-  margin: auto;
+  margin: 5px;
   margin-top: 3rem;
-  max-width: 400px;
 }
 
 .form {
@@ -91,13 +117,15 @@ h3 {
 }
 
 .input {
-  width: 100%;
+  width: 60%;
+  margin-top: 10px;
   padding: 10px;
 }
 
 .submit-button {
-  width: 400px;
+  width: auto;
   padding: 10px;
+  margin-top: 20px;
   background-color: #1976d2;
   color: white;
   cursor: pointer;
@@ -149,5 +177,12 @@ h3 {
   padding: 10px;
   cursor: pointer;
   border: none;
+}
+.parent {
+  display: grid;
+  grid-template-columns: 1fr repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 50px;
+  grid-row-gap: 50px;
 }
 </style>
