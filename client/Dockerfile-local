@@ -3,6 +3,7 @@ FROM node
 WORKDIR /usr/src/app/visit-app
 
 COPY package*.json ./
+COPY src/assets/* ./
 
 RUN npm install
 

@@ -1,11 +1,10 @@
 <template>
   <div class="main">
-    <h3>Visitationtion List</h3>
+    <h1 class="title">Visitationtion List</h1>
     <div class="parent">
       <div class="row">
         <div class="column">
           <Datepicker />
-
           <div>
             <br />
             <form class="form">
@@ -29,32 +28,27 @@
             </form>
           </div>
           <div>
-            <div class="todo-container">
-              <ul>
-                <li v-for="(todo, i) in todos" :key="todo._id">
-                  <div class="todo">
-                    <span class="todo-name">{{ todo.title }}</span>
-                    <span class="todo-description">{{ todo.description }}</span>
-                  </div>
-                  <button class="delete-btn" @click="removeTodo(todo, i)">
-                    DELETE TODO
-                  </button>
-                </li>
-              </ul>
+            <div>
+              <GenderSlider gender="Man" />
+              <GenderSlider gender="Woman" />
+              <GenderSlider gender="Pokemon" />
             </div>
           </div>
         </div>
       </div>
       <div class="column">
-        <div>
-          <GenderSlider gender="Man" />
-          <GenderSlider gender="Woman" />
-          <GenderSlider gender="Pokemon" />
-          <GenderSlider gender="CSS magician" />
-          <GenderSlider gender="Alien" />
-          <GenderSlider gender="Orc" />
-          <GenderSlider gender="Goblin" />
-          <GenderSlider gender="Ethereal" />
+        <div class="todo-container">
+          <ul>
+            <li v-for="(todo, i) in todos" :key="todo._id">
+              <div class="todo">
+                <span class="todo-name">{{ todo.title }}</span>
+                <span class="todo-description">{{ todo.description }}</span>
+              </div>
+              <button class="delete-btn" @click="removeTodo(todo, i)">
+                DELETE TODO
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -99,42 +93,69 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: "Sevastopol";
+  src: url("./assets/fonts/Sevastopol-Interface.ttf") format("truetype");
+}
+.custom-font {
+  font-family: Sevastopol;
+}
+.title {
+  font-size: 2.45em;
+  padding: 20px;
+  margin: 40px;
+}
 .main {
-  margin: 5px;
-  margin-top: 3rem;
+  padding: 40px;
+  margin: -10px;
+  background-color: rgb(8, 14, 10);
+  color: #a4e4cb;
+  font-family: Sevastopol;
+  font-size: 1.5em;
+  border: 2px solid #a4e4cb;
+  opacity: 97%;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
 }
 
 h3 {
   font-size: 22px;
   font-weight: bold;
-  text-align: center;
+  text-align: left;
 }
 
 .input {
+  background-color: rgb(8, 14, 10);
+  color: #a4e4cb;
   width: 60%;
-  margin-top: 10px;
-  padding: 10px;
+  margin: 10px;
+  border: 2px solid #a4e4cb;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: 10px;
 }
 
 .submit-button {
-  width: auto;
-  padding: 10px;
-  margin-top: 20px;
-  background-color: #1976d2;
-  color: white;
+  background-color: rgb(8, 14, 10);
+  width: 30%;
+  color: #a4e4cb;
+  padding: 20px;
+  margin: 10px;
   cursor: pointer;
+  border: 2px solid #a4e4cb;
 }
 
 .todo-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 2px solid #a4e4cb;
+  border-radius: 3px;
+  margin: 10px;
 }
 
 .todo-container ul {
@@ -162,21 +183,25 @@ h3 {
 }
 
 .todo-name {
-  font-size: 18px;
+  font-size: 1.5em;
   font-weight: bold;
 }
 
 .todo-description {
   max-width: 70%;
-  font-size: 14px;
+  opacity: 70%;
+  font-size: 1.3em;
 }
 
 .delete-btn {
-  background-color: #f44336;
-  color: white;
+  background-color: rgb(8, 14, 10);
+  color: #a4e4cb;
   padding: 10px;
   cursor: pointer;
-  border: none;
+  border: 2px solid #a4e4cb;
+  border-radius: 4px;
+  font-family: Sevastopol;
+  font-size: 1.2em;
 }
 .parent {
   display: grid;
