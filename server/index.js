@@ -3,7 +3,8 @@ const app = express()
 const mongoose = require('mongoose')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const TodoListRoutes = require('./routes/api/Todolist')
+const VisitationListRoutes = require('./routes/api/VisitationList')
+
 const path = require('path')
 const dotenv = require('dotenv');
 dotenv.config({ path: path.resolve(__dirname, './develop.env') })
@@ -20,6 +21,5 @@ mongoose
     .then(() => console.log('MongoDB database Connected...'))
     .catch((err) => console.log(err))
 
-app.use('/api/todoList', TodoListRoutes)
-
+app.use('/api/visitationlist', VisitationListRoutes)
 app.listen(3000, () => console.log(`App listening at http://localhost:3000`))

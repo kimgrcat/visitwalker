@@ -2,15 +2,16 @@
   <div class="main">
     <h1 class="title">Visitationtion List</h1>
     <div class="parent">
-      <div class="row">
-        <div class="column">
-          <Datepicker />
+      <div class="column">
+        <div class="row">
           <div>
+            
             <br />
             <form class="form">
+              <Datepicker v-model="date"/>
               <input
                 class="input"
-                v-model="title"
+                v-model="name"
                 type="text"
                 name="name"
                 placeholder="Enter Name"
@@ -24,7 +25,7 @@
                 placeholder="Enter Descriptiontion"
               />
               <br />
-              <button class="submit-button" @click="addTodo">Add Visit</button>
+              <button class="submit-button" @click="addVisitation">Add Visit</button>
             </form>
           </div>
           <div>
@@ -34,18 +35,24 @@
               <GenderSlider gender="Pokemon" />
             </div>
           </div>
+          <VisitCamera></VisitCamera>
         </div>
       </div>
       <div class="column">
         <div class="todo-container">
           <ul>
-            <li v-for="(todo, i) in todos" :key="todo._id">
-              <div class="todo">
-                <span class="todo-name">{{ todo.title }}</span>
-                <span class="todo-description">{{ todo.description }}</span>
+            <li v-for="(visitation, i) in visitations" :key="visitation._id">
+              <div class="visitation">
+                <span class="visitation-name">{{ visitation.name }}</span>
+                <br>
+                <span class="visitation-description">{{ visitation.description }}</span>
+                <br>
+                <span class="visitation-date">{{ visitation.date }}</span>
+                <br>
+                <span class="visitation-device">{{ visitation.device }}</span>
               </div>
-              <button class="delete-btn" @click="removeTodo(todo, i)">
-                DELETE TODO
+              <button class="delete-btn" @click="removeVisitation(visitation, i)">
+                del visitation
               </button>
             </li>
           </ul>
@@ -59,36 +66,56 @@
 import axios from "axios";
 import Datepicker from "./components/Date-picker.vue";
 import GenderSlider from "./components/GenderSlider.vue";
+import VisitCamera from "./components/VisitCamera.vue";
+
 export default {
   name: "App",
   data() {
     return {
-      todos: [],
+      visitations: [],
+      date: new Date(),
+      name: "",
       description: "",
-      title: "",
+      device: ""
     };
   },
   async mounted() {
-    const response = await axios.get("api/todoList/");
-    this.todos = response.data;
+    const response = await axios.get("api/visitationlist/");
+    const responseFromBackend = await axios.get("http://localhost:8080/");
+    
+    console.log("responseFromBackend : ", responseFromBackend.data);
+    this.visitations = response.data;
+  },
+  updated() {
+    console.log('app.vue Updated ..');
+
   },
   methods: {
-    async addTodo(e) {
-      e.preventDefault();
-      const response = await axios.post("api/todoList/", {
-        title: this.title,
-        description: this.description,
-      });
-      this.todos.push(response.data);
-      this.title = "";
-      this.description = "";
+    async snapshot() {
+      console.log('SNAPSHOT!!');
+
     },
-    async removeTodo(item, i) {
-      await axios.delete("api/todoList/" + item._id);
-      this.todos.splice(i, 1);
+    async addVisitation(e) {
+      e.preventDefault();
+      const response = await axios.post("api/visitationlist/", {
+        date: new Date(),
+        name: this.name,
+        description: this.description,
+        device: "COMP"
+      });
+      console.log("Inside addVisitation: ", response.data);
+      this.visitations.push(response.data);
+      this.date = new Date();
+      this.name = "";
+      this.description = "";
+      this.device = "";
+    },
+    async removeVisitation(item, i) {
+      await axios.delete("api/visitationlist/" + item._id);
+      this.visitations.splice(i, 1);
     },
   },
-  components: { Datepicker, GenderSlider },
+  components: { Datepicker, GenderSlider, VisitCamera },
 };
 </script>
 
@@ -114,6 +141,7 @@ export default {
   font-size: 1.5em;
   border: 2px solid #a4e4cb;
   opacity: 97%;
+  height: fit-content;
 }
 
 .form {
@@ -179,7 +207,7 @@ h3 {
   align-items: flex-start;
   justify-content: flex-start;
   padding: 10px;
-  max-width: 250px;
+  max-width: 100%;
 }
 
 .todo-name {
@@ -197,6 +225,7 @@ h3 {
   background-color: rgb(8, 14, 10);
   color: #a4e4cb;
   padding: 10px;
+  margin-right: 10%;
   cursor: pointer;
   border: 2px solid #a4e4cb;
   border-radius: 4px;
@@ -205,8 +234,8 @@ h3 {
 }
 .parent {
   display: grid;
-  grid-template-columns: 1fr repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: 1fr repeat(1, 1fr);
+  grid-template-rows: repeat(1, 1fr);
   grid-column-gap: 50px;
   grid-row-gap: 50px;
 }

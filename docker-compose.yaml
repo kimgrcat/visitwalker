@@ -30,3 +30,4 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile-local
+

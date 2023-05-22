@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Datepicker class="datepicker" v-model="date" :format="format" />
+    <Datepicker class="datepicker" v-model="date" :format="format" dark/>
   </div>
 </template>
 
@@ -20,9 +20,13 @@ const format = (date) => {
     .toString()
     .padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
 };
+
 </script>
 <style>
 .datepicker {
   width: 20vw;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  
 }
 </style>

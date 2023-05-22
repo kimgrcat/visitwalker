@@ -16,10 +16,9 @@ const VisitationSchema = new Schema({
     device: {
         type: String,
         required: false,
-    },
-    location. 
+    }
 })
 
-const Visitation = model('visitation', VisistationSchema)
+const Visitation = model('visitation', VisitationSchema)
 
 module.exports = Visitation
